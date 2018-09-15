@@ -6,6 +6,6 @@
     </style>
   </head>
   <body>
-    {{ .LayoutContent }}
+    {{ if .LayoutContent }}{{ .LayoutContent }} {{ end }}
   </body>
 </html>
