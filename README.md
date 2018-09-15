@@ -19,6 +19,24 @@ import "github.com/chalvern/simplate"
 SIMPLATE has a variable named `ViewsPath` keep the template's directory. 
 SIMPLATE will load all template files in the `ViewsPath` into memory.
 
+**IMPORTANT** layout file must contains `{{ .LayoutContent }}` as its body, like:
+
+```html
+<html>
+  <head>
+    <style type="text/css">
+      body {background-color: red}
+      p {margin-left: 20px}
+    </style>
+  </head>
+  <body>
+    {{ if .LayoutContent }}{{ .LayoutContent }} {{ end }}
+  </body>
+</html>
+```
+
+the body content would be nested into layout as `LayoutContent`.
+
 ### init simplate
 
 ```golang
@@ -33,9 +51,15 @@ func InitIsmplate(){
 }
 
 func YourCode() error {
-  data := make(map[string]interface{}
+  data := make(map[string]interface{})
   // data["Jingwei"] = "https://jingwei.link"
   return simplate.ExecuteTemplate(os.Stdout,"home/body.html", data)
+}
+
+func YourCodeTwo() error {
+  data := make(map[string]interface{})
+  // data["site"] = "https://WhereSmile.com"
+  return simplate.ExecuteViewPathTemplateWithLayout(os.Stdout, "layout/default.html", "home/body.html", data)
 }
 
 ```
