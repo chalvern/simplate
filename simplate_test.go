@@ -20,7 +20,8 @@ func TestMain(m *testing.M) {
 
 	// initial template
 	InitTemplate()
-	m.Run()
+	kk := m.Run()
+	os.Exit(kk)
 }
 func TestSimplateViewPathTemplates(t *testing.T) {
 	assert.NotEqual(t, 0, len(simplateViewPathTemplates))
