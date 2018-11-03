@@ -13,7 +13,13 @@ var (
 	// LayoutFile layout file path
 	LayoutFile = "layout/default.html"
 
-	// private
+	//
+	// private variables
+
+	// templates
 	simplateViewPathTemplates = make(map[string]*template.Template)
 	templatesLock             sync.RWMutex
+
+	// functions
+	simplateTplFuncMap = make(template.FuncMap)
 )
