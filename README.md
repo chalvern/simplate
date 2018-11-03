@@ -46,6 +46,13 @@ func InitIsmplate(){
   simplate.ViewsPath  = "your-templates-dir" // default is "views"
   simplate.LayoutFile = "your-layout-file" // default is "layout/default.html"
 
+  // if there are some template functions
+  // such as the data format function
+  dataFormatFunc := func(t time.Time) string {
+    return t.UTC().Format("2006年01月02日03时04分05秒UTC")
+  }
+  simplate.AddFuncMap("dataFormat", dataFormatFunc)
+
   // initial
   simplate.InitTemplate()
 }
