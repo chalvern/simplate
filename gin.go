@@ -31,11 +31,13 @@ func (hr *GinRendererS) Instance(name string, data interface{}) render.Render {
 	// body
 	var buf bytes.Buffer
 	ExecuteViewPathTemplate(&buf, name, data)
-	dataT := make(map[string]interface{})
-	dataT["LayoutContent"] = template.HTML(buf.String())
+	dataT := make(gin.H)
 	dataMap, ok := data.(gin.H)
 	if ok {
-		dataT["PageTitle"] = dataMap["PageTitle"]
+		dataMap["LayoutContent"] = template.HTML(buf.String())
+		dataT = dataMap
+	} else {
+		dataT["LayoutContent"] = template.HTML(buf.String())
 	}
 	return render.HTML{
 		Template: simplateViewPathTemplates[layoutFile],
