@@ -4,6 +4,8 @@ import (
 	"bytes"
 	"html/template"
 
+	"github.com/gin-gonic/gin"
+
 	"github.com/chalvern/sugar"
 	"github.com/gin-gonic/gin/render"
 )
@@ -31,7 +33,7 @@ func (hr *GinRendererS) Instance(name string, data interface{}) render.Render {
 	ExecuteViewPathTemplate(&buf, name, data)
 	dataT := make(map[string]interface{})
 	dataT["LayoutContent"] = template.HTML(buf.String())
-	dataMap, ok := data.(map[string]interface{})
+	dataMap, ok := data.(gin.H)
 	if ok {
 		dataT["PageTitle"] = dataMap["PageTitle"]
 	}
