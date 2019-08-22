@@ -10,7 +10,7 @@ import (
 	"regexp"
 	"strings"
 
-	"github.com/sirupsen/logrus"
+	"github.com/chalvern/sugar"
 )
 
 //
@@ -70,7 +70,7 @@ func BuildTemplate(dir string, files ...string) error {
 				var t *template.Template
 				t, err = getTemplate(tff.root, file, v...)
 				if err != nil {
-					logrus.Error("parse template err:", file, err)
+					sugar.Error("parse template err:", file, err)
 					return err
 				}
 				simplateViewPathTemplates[file] = t
@@ -110,7 +110,7 @@ func _getTemplate(t0 *template.Template, root string, subMods [][]string, others
 					var subMods1 [][]string
 					t, subMods1, err = getTplDeep(root, otherFile, "", t)
 					if err != nil {
-						logrus.Error("template parse file err:", err)
+						sugar.Error("template parse file err:", err)
 					} else if len(subMods1) > 0 {
 						t, err = _getTemplate(t, root, subMods1, others...)
 					}
@@ -132,7 +132,7 @@ func _getTemplate(t0 *template.Template, root string, subMods [][]string, others
 						var subMods1 [][]string
 						t, subMods1, err = getTplDeep(root, otherFile, "", t)
 						if err != nil {
-							logrus.Error("template parse file err:", err)
+							sugar.Error("template parse file err:", err)
 						} else if len(subMods1) > 0 {
 							t, err = _getTemplate(t, root, subMods1, others...)
 						}

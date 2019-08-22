@@ -5,7 +5,7 @@ import (
 	"html/template"
 	"io"
 
-	"github.com/sirupsen/logrus"
+	"github.com/chalvern/sugar"
 )
 
 // InitTemplate init templates
@@ -43,7 +43,7 @@ func ExecuteViewPathTemplate(wr io.Writer, name string, data interface{}) error 
 			err = t.Execute(wr, data)
 		}
 		if err != nil {
-			logrus.Error("template Execute err:", err)
+			sugar.Error("template Execute err:", err)
 		}
 		return err
 	}
