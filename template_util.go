@@ -82,7 +82,7 @@ func BuildTemplate(dir string, files ...string) error {
 }
 
 func getTemplate(root, file string, others ...string) (t *template.Template, err error) {
-	t = template.New(file)
+	t = template.New(file).Funcs(simplateTplFuncMap)
 	var subMods [][]string
 	t, subMods, err = getTplDeep(root, file, "", t)
 	if err != nil {
