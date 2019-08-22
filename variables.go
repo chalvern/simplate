@@ -9,9 +9,9 @@ var (
 	// public
 
 	// ViewsPath root path of views
-	ViewsPath = "views"
+	viewsPath = "views"
 	// LayoutFile layout file path
-	LayoutFile = "layout/default.html"
+	layoutFile = "layout/default.html"
 
 	//
 	// private variables
@@ -23,3 +23,13 @@ var (
 	// functions
 	simplateTplFuncMap = make(template.FuncMap)
 )
+
+// SetViewsPath set view's path
+func SetViewsPath(path string) {
+	viewsPath = path
+}
+
+// SetLayoutFile set layout's file
+func SetLayoutFile(layoutFile string) {
+	layoutFile = layoutFile
+}

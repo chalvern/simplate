@@ -1,6 +1,9 @@
 package simplate
 
 import (
+	"bytes"
+	"html/template"
+
 	"github.com/chalvern/sugar"
 	"github.com/gin-gonic/gin/render"
 )
@@ -17,8 +20,15 @@ func (hr *GinRenderer) Instance(name string, data interface{}) render.Render {
 	if simplateViewPathTemplates[name] == nil {
 		sugar.Warnf("no template of name: %s", name)
 	}
+
+	// body
+	dataT := make(map[string]interface{})
+	var buf bytes.Buffer
+	ExecuteViewPathTemplate(&buf, name, data)
+	dataT["LayoutContent"] = template.HTML(buf.String())
+
 	return render.HTML{
-		Template: simplateViewPathTemplates[name],
-		Data:     data,
+		Template: simplateViewPathTemplates[layoutFile],
+		Data:     dataT,
 	}
 }
