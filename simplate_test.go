@@ -10,7 +10,6 @@ import (
 )
 
 func TestMain(m *testing.M) {
-	ViewsPath = "views"
 
 	// template function
 	dataFormatFunc := func(t time.Time) string {
@@ -20,8 +19,8 @@ func TestMain(m *testing.M) {
 
 	// initial template
 	InitTemplate()
-	kk := m.Run()
-	os.Exit(kk)
+	xm := m.Run()
+	os.Exit(xm)
 }
 func TestSimplateViewPathTemplates(t *testing.T) {
 	assert.NotEqual(t, 0, len(simplateViewPathTemplates))
@@ -49,4 +48,14 @@ func TestExecuteTemplate(t *testing.T) {
 	err := ExecuteTemplate(&buf, "home/index.html", data)
 	assert.Nil(t, err)
 	assert.Contains(t, buf.String(), "2018年11月03日05时28分44秒UTC")
+}
+
+func TestExecuteTemplateLayout(t *testing.T) {
+	data := make(map[string]interface{})
+	data["layout"] = "layout/home.html"
+
+	var buf bytes.Buffer
+	err := ExecuteTemplate(&buf, "home/head.tpl", data)
+	assert.Nil(t, err)
+	assert.Contains(t, buf.String(), "home.html")
 }

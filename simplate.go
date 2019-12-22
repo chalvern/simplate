@@ -13,12 +13,15 @@ func InitTemplate() error {
 
 	simplateViewPathTemplates = make(map[string]*template.Template)
 
-	return BuildTemplate(viewsPath)
+	return BuildTemplate(defaultViewsPath)
 }
 
 // ExecuteTemplate execute template with default layout file.
 func ExecuteTemplate(wr io.Writer, bodyName string, data map[string]interface{}) error {
-	return ExecuteViewPathTemplateWithLayout(wr, layoutFile, bodyName, data)
+	if layout, ok := data["layout"]; ok {
+		return ExecuteViewPathTemplateWithLayout(wr, layout.(string), bodyName, data)
+	}
+	return ExecuteViewPathTemplateWithLayout(wr, defaultLayoutFile, bodyName, data)
 }
 
 // ExecuteViewPathTemplateWithLayout excute template with layout
@@ -47,5 +50,5 @@ func ExecuteViewPathTemplate(wr io.Writer, name string, data interface{}) error 
 		}
 		return err
 	}
-	panic("can't find templatefile in the path:" + viewsPath + "/" + name)
+	panic("can't find templatefile in the path:" + defaultViewsPath + "/" + name)
 }

@@ -65,6 +65,13 @@ func YourCode() error {
 
 func YourCodeTwo() error {
   data := make(map[string]interface{})
+  data["layout"] = "layout/default.html"
+  // data["site"] = "https://WhereSmile.com"
+  return simplate.ExecuteTemplate(os.Stdout,"home/body.html", data)
+}
+
+func YourCodeThree() error {
+  data := make(map[string]interface{})
   // data["site"] = "https://WhereSmile.com"
   return simplate.ExecuteViewPathTemplateWithLayout(os.Stdout, "layout/default.html", "home/body.html", data)
 }

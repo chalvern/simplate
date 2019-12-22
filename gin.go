@@ -28,6 +28,8 @@ func (hr *GinRendererS) Instance(name string, data interface{}) render.Render {
 		sugar.Warnf("no template of name: %s", name)
 	}
 
+	layoutFile := defaultLayoutFile
+
 	// body
 	var buf bytes.Buffer
 	ExecuteViewPathTemplate(&buf, name, data)
@@ -36,6 +38,10 @@ func (hr *GinRendererS) Instance(name string, data interface{}) render.Render {
 	if ok {
 		dataMap["LayoutContent"] = template.HTML(buf.String())
 		dataT = dataMap
+		// custom layout
+		if layout, ok := dataMap["layout"]; ok {
+			layoutFile = layout.(string)
+		}
 	} else {
 		dataT["LayoutContent"] = template.HTML(buf.String())
 	}

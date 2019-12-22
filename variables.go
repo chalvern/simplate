@@ -6,15 +6,11 @@ import (
 )
 
 var (
-	// public
 
-	// ViewsPath root path of views
-	viewsPath = "views"
-	// LayoutFile layout file path
-	layoutFile = "layout/default.html"
-
-	//
-	// private variables
+	// defaultViewsPath default root path of views
+	defaultViewsPath = "views"
+	// defaultLayoutFile default layout file path
+	defaultLayoutFile = "layout/default.html"
 
 	// templates
 	simplateViewPathTemplates = make(map[string]*template.Template)
@@ -26,10 +22,10 @@ var (
 
 // SetViewsPath set view's path
 func SetViewsPath(path string) {
-	viewsPath = path
+	defaultViewsPath = path
 }
 
 // SetLayoutFile set layout's file
-func SetLayoutFile(layoutFile string) {
-	layoutFile = layoutFile
+func SetLayoutFile(layout string) {
+	defaultLayoutFile = layout
 }
